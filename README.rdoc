@@ -54,3 +54,5 @@ And with Chatter this can be easily implemented with
     
     (1 == 1).ifFalse {'wrong'}.ifTrue {'right'}
 
+- Sub-methods must be called in order they're listed in +chat+
+
