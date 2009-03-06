@@ -50,7 +50,7 @@ that take arguments, for example, <tt>TableWidget#getCellText(x, y)</tt>,
       getCellText(x, y)
     end
 
-    chat(:cell_text, :[]=) do |_, ((x, y), value)|
+    chat(:cell_text, :[]=) do |_, (x, y, value)|
       setCellText(x, y, value)
     end
   end
