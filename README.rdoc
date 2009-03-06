@@ -39,6 +39,26 @@ And with Chatter this can be easily implemented with
     chat(:-, :>) {|symbol, target_state| ...}
   end
 
+For another example, a Ruby API for a GUI tookit might use Rubyish
+accessor methods (+property+, +property=+) as aliases to (+getProperty+,
++setProperty+). But this is not directly possible with properties
+that take arguments, for example, +TableWidget#getCellText(x, y)+,
++TableWidget#setCellText(x, y)+. By using
+
+  class TableWidget
+    chat(:cell_text, :[]) do |_, (x, y)|
+      getCellText(x, y)
+    end
+
+    chat(:cell_text, :[]=) do |_, ((x, y), value)|
+      setCellText(x, y, value)
+    end
+  end
+
+We can do
+
+  a_table_widget.cell_text[x, y] += " (cool)"
+
 == Limitations
 
 - "Multi-name methods" with overlapping components are not yet supported. For
