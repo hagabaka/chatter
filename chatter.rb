@@ -1,5 +1,3 @@
-require 'metaid'
-
 # Extending Chatter allows using "chat" to define a series of methods
 # to do the same task.
 #
