@@ -32,8 +32,8 @@ describe Chatter do
   it "should evaluate method block in instance scope" do
     v = any_value
     m = any_method_name
-    @chatter.chat(:test_method) {@value}
-    @chatter.new.tap {|o| o.value = v}.test_method.should == v
+    @chatter.chat(m) {@value}
+    @chatter.new.tap {|o| o.value = v}.send(m).should == v
   end
 
   it "should combine multiple sub-methods to function like one method" do
