@@ -59,6 +59,7 @@ describe Chatter do
       end
     end
     @chatter.new {@value = false}.
-      ifValueTrue {t}.ifValueFalse {f}.should == 'correct' end
+      ifValueTrue {t}.ifValueFalse {f}.should == 'correct'
+  end
 end
    
