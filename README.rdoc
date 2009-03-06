@@ -39,10 +39,11 @@ And with Chatter this can be easily implemented with
     chat(:-, :>) {|symbol, target_state| ...}
   end
 
-For another example, a Ruby API for a GUI tookit might use Rubyish
-accessor methods (+property+, <tt>property=</tt>) as aliases to (+getProperty+,
-+setProperty+). But this is not directly possible with properties
-that take arguments, for example, <tt>TableWidget#getCellText(x, y)</tt>,
+For another example, (this code does not work yet due to the first limitation
+listed below) a Ruby API for a GUI tookit might use Rubyish accessor
+methods (+property+, <tt>property=</tt>) as aliases to (+getProperty+,
++setProperty+). But this is not directly possible with properties that
+take arguments, for example, <tt>TableWidget#getCellText(x, y)</tt>,
 <tt>TableWidget#setCellText(x, y)</tt>. By using
 
   class TableWidget
