@@ -33,16 +33,23 @@ module Chatter
       # when only one method, act like define_method
       define_method(first_method, &block)
     else
-      helper = Object.new
-      helper.metaclass.extend Chatter
-      helper.metaclass.chat(*rest_methods) do |*rest_args|
-        @object.instance_exec(*(@args + rest_args), &block)
+      helper_class = Class.new
+
+      # an instance of helper_class is created when the first sub-method is
+      # called, and stores the receiver and arguments
+      define_method(first_method) do |*args|
+        helper_class.new(self, args)
+      end
+      helper_class.send(:define_method, :initialize) do |receiver, args|
+        @receiver = receiver
+        @args = args
       end
 
-      define_method(first_method) do |*args|
-        helper.instance_variable_set(:@object, self)
-        helper.instance_variable_set(:@args, args)
-        helper
+      # it accepts the rest of the sub-methods and passes the receiver and
+      # arguments down the recursion
+      helper_class.extend Chatter
+      helper_class.chat(*rest_methods) do |*rest_args|
+        @receiver.instance_exec(*(@args + rest_args), &block)
       end
     end
   end
