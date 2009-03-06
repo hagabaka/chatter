@@ -12,8 +12,9 @@ describe Chatter do
   end
 
   def any_function
+    r = rand(100)
     proc do |*a|
-      a.reverse
+      a.reverse * r
     end
   end
 
