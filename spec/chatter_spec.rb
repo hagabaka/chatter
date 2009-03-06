@@ -48,6 +48,19 @@ describe Chatter do
     end
   end
 
+  it "should handle partly overlapping sub-methods" do
+    pending('Overlapping sub-methods not implemented yet')
+    (body1, body2) = Array.new(2) {any_function}
+    (m0, m1, m2) = Array.new(3) {any_method_name}
+    (v0, v1, v2) = Array.new(3) {any_value}
+    @chatter.chat(m0, m1, &body1)
+    @chatter.chat(m0, m2, &body2)
+    @chatter.new.tap do |o|
+      o.send(m0, v0).send(m1, v1).should == body1.call(v0, v1)
+      o.send(m0, v0).send(m2, v2).should == body2.call(v0, v2)
+    end
+  end
+
   it "should handle sub-method blocks" do
     pending('Sub-method blocks not implemented yet')
     (t, f) = Array.new(3) {any_value}
