@@ -46,5 +46,19 @@ describe Chatter do
         o.equiv_method(v1, v2, v3)
     end
   end
+
+  it "should handle sub-method blocks" do
+    pending('Sub-method blocks not implemented yet')
+    (t, f) = Array.new(3) {any_value}
+    # tentative syntax
+    @chatter.chat(:'ifValueTrue(&t_block)', :'ifValueFalse(&f_block)') do
+      if @value
+        t_block.call
+      else
+        f_block.call
+      end
+    end
+    @chatter.new {@value = false}.
+      ifValueTrue {t}.ifValueFalse {f}.should == 'correct' end
 end
    
