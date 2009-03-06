@@ -1,0 +1,55 @@
+= Chatter - Smalltalk Wannabe for Ruby
+
+This is a library that allows you to define a "multinamed" method.
+
+== Example
+
+  require 'chatter'
+
+  class Kid
+    def initialize(name)
+      @name = name
+    end
+  
+    extend Chatter
+  
+    # this is how to use "chat" to define a multi-named method
+    chat(:pass, :to, :saying) do |item, target, words|
+      puts "#{@name} passes #{item} to #{target}, saying '#{words}'"
+    end
+  end
+  
+  jack = Kid.new('Jack')
+  
+  # this is how the method is called
+  jack.pass('ball').to('Jill').saying('catch!')
+  # >> "Jack passes ball to Jill, saying 'catch!'"
+
+== Motivation
+
+This library is mostly tailored for creating DSLs. For example, a DSL for
+describing finite-state machines can look like
+  
+  a_state - a_symbol > another_state
+
+And with Chatter this can be easily implemented with
+
+  class State
+    chat(:-, :>) {|symbol, target_state| ...}
+  end
+
+== Limitations
+
+- "Multi-name methods" with overlapping components are not yet supported. For
+  example, if you do
+
+    chat(:pass, :to) {}
+    chat(:pass)
+
+  Only the second one will work.
+
+- Sub-methods that take blocks are not yet supported. For example, you cannot
+  do
+    
+    (1 == 1).ifFalse {'wrong'].ifTrue {'right'}
+
